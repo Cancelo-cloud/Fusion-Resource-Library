@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fusion Resource Library</title>
+  <meta name="description" content="OneLife Church – Fusion resource library for Friday night preparation." />
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #050505;
+  --card: #111111;
+  --text: #f7f4ed;
+  --muted: #b9b0a3;
+  --line: rgba(255,255,255,0.12);
+  --gold: #d8b46a;
+  --shadow: rgba(0,0,0,0.45);
+  --radius-xl: 32px;
+  --radius-lg: 24px;
+  --radius-md: 18px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(216,180,106,0.13), transparent 34rem),
+    radial-gradient(circle at 90% 15%, rgba(255,255,255,0.08), transparent 28rem),
+    linear-gradient(180deg, #020202 0%, #080808 48%, #050505 100%);
+  color: var(--text);
+}
+
+.page-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.hero {
+  position: relative;
+  padding: 76px 0 52px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 18px 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(216,180,106,0.45), transparent);
+}
+
+.hero__glow {
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  filter: blur(4px);
+  opacity: 0.55;
+}
+
+.hero__glow--one {
+  width: 260px;
+  height: 260px;
+  top: 40px;
+  left: -90px;
+  background: rgba(216,180,106,0.12);
+}
+
+.hero__glow--two {
+  width: 320px;
+  height: 320px;
+  right: -160px;
+  bottom: -40px;
+  background: rgba(255,255,255,0.07);
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(3.2rem, 9vw, 7.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.08em;
+  font-weight: 800;
+}
+
+.tagline {
+  margin: 26px 0 0;
+  color: var(--gold);
+  font-size: clamp(1.15rem, 2vw, 1.75rem);
+  font-weight: 600;
+}
+
+.intro {
+  max-width: 690px;
+  margin: 18px auto 0;
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 1rem;
+}
+
+.search-wrap {
+  width: min(680px, 100%);
+  margin: 34px auto 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.94);
+  color: #111;
+  border-radius: 999px;
+  padding: 16px 22px;
+  box-shadow: 0 24px 70px var(--shadow);
+}
+
+.search-wrap span {
+  color: #8a6d36;
+  font-size: 1.35rem;
+  transform: translateY(-1px);
+}
+
+.search-wrap input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #161616;
+  font: inherit;
+}
+
+.search-wrap input::placeholder { color: #987e4d; }
+
+.stats {
+  margin: 38px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  width: min(760px, 100%);
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.stats div {
+  background: rgba(255,255,255,0.035);
+  padding: 19px 10px;
+}
+
+.stats strong {
+  display: block;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1;
+}
+
+.stats span {
+  display: block;
+  margin-top: 7px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: end;
+  padding: 34px 0 24px;
+  border-top: 1px solid var(--line);
+}
+
+.section-head h2 {
+  margin: 0;
+  max-width: 670px;
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.section-note {
+  margin: 0 0 5px;
+  color: var(--muted);
+}
+
+.shelf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  padding: 0 0 54px;
+}
+
+.shelf-card {
+  position: relative;
+  min-height: 390px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--card);
+  box-shadow: 0 28px 80px rgba(0,0,0,0.24);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.shelf-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(216,180,106,0.45);
+  box-shadow: 0 32px 90px rgba(0,0,0,0.34);
+}
+
+.shelf-card__image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+}
+
+.shelf-card__image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.88) 76%),
+    linear-gradient(90deg, rgba(0,0,0,0.35), transparent);
+}
+
+.shelf-card__content {
+  position: relative;
+  z-index: 1;
+  min-height: 390px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+}
+
+.shelf-card__tag {
+  width: fit-content;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.42);
+  color: var(--gold);
+  border-radius: 999px;
+  padding: 7px 11px;
+  font-size: 0.73rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+}
+
+.shelf-card h3 {
+  margin: 16px 0 8px;
+  font-size: 1.55rem;
+  letter-spacing: -0.04em;
+}
+
+.shelf-card p {
+  margin: 0;
+  color: rgba(247,244,237,0.82);
+  line-height: 1.55;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.open-btn,
+.link-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 15px;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.open-btn {
+  background: var(--text);
+  color: #070707;
+}
+
+.link-btn {
+  background: rgba(255,255,255,0.1);
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+
+.empty-state {
+  padding: 44px;
+  text-align: center;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 28px 0 44px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--muted);
+}
+
+.footer strong { color: var(--text); }
+
+.modal {
+  width: min(820px, calc(100% - 28px));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  padding: 0;
+  background: #0b0b0b;
+  color: var(--text);
+  box-shadow: 0 40px 120px rgba(0,0,0,0.65);
+}
+
+.modal::backdrop {
+  background: rgba(0,0,0,0.78);
+  backdrop-filter: blur(8px);
+}
+
+.modal__close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 4;
+  border: 0;
+  border-radius: 999px;
+  width: 42px;
+  height: 42px;
+  background: rgba(0,0,0,0.65);
+  color: var(--text);
+  font-size: 1.55rem;
+  cursor: pointer;
+}
+
+.modal-hero {
+  min-height: 250px;
+  padding: 120px 28px 28px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.modal-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.92));
+}
+
+.modal-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.modal-hero h2 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  letter-spacing: -0.07em;
+}
+
+.modal-body {
+  padding: 28px;
+}
+
+.modal-body p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.resource-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.resource-item {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.035);
+}
+
+.resource-item strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.resource-item span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.5;
+}
+
+.resource-item a {
+  display: inline-block;
+  color: var(--gold);
+  margin-top: 10px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.edit-note {
+  margin: 0 auto 48px;
+  padding: 20px;
+  border: 1px solid rgba(216,180,106,0.25);
+  border-radius: var(--radius-lg);
+  background: rgba(216,180,106,0.08);
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.edit-note strong { color: var(--text); }
+
+@media (max-width: 920px) {
+  .shelf-grid { grid-template-columns: repeat(2, 1fr); }
+  .section-head, .footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 620px) {
+  .page-shell { width: min(100% - 20px, 1180px); }
+  .hero { padding-top: 54px; }
+  .stats { grid-template-columns: 1fr; }
+  .shelf-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .shelf-card, .shelf-card__content { min-height: 330px; }
+  .search-wrap { padding: 14px 18px; }
+}
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero__glow hero__glow--one"></div>
+      <div class="hero__glow hero__glow--two"></div>
+
+      <p class="eyebrow">OneLife Church</p>
+      <h1>Fusion Resource Library</h1>
+      <p class="tagline">Everything your team needs for Friday night</p>
+      <p class="intro">
+        A simple resource shelf for Fusion leaders, volunteers and team captains to prepare,
+        communicate and serve well.
+      </p>
+
+      <label class="search-wrap" for="shelfSearch">
+        <span aria-hidden="true">⌕</span>
+        <input id="shelfSearch" type="search" placeholder="Search shelves, resources, teams..." autocomplete="off" />
+      </label>
+
+      <section class="stats" aria-label="Library overview">
+        <div>
+          <strong id="resourceCount">21</strong>
+          <span>Resources</span>
+        </div>
+        <div>
+          <strong>7</strong>
+          <span>Shelves</span>
+        </div>
+        <div>
+          <strong>Friday</strong>
+          <span>Night Ready</span>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="section-head">
+        <div>
+          <p class="eyebrow">Resource Shelves</p>
+          <h2>Open a shelf to find what your team needs.</h2>
+        </div>
+        <p class="section-note">Built for captains, volunteers and leaders.</p>
+      </section>
+
+      <section id="shelfGrid" class="shelf-grid" aria-live="polite"></section>
+
+      <p id="emptyState" class="empty-state" hidden>
+        No shelf matches your search. Try “band”, “forms”, “media”, “finance” or “preaching”.
+      </p>
+
+      <section class="edit-note">
+        <strong>Editing note:</strong> this is a one-file build. To change shelf names, descriptions, images, or links,
+        edit the <strong>shelves</strong> list near the bottom of this HTML file inside the script section.
+      </section>
+    </main>
+
+    <footer class="footer">
+      <strong>OneLife Church – Fusion</strong>
+      <span>Prepared for leaders, volunteers and team captains.</span>
+    </footer>
+  </div>
+
+  <dialog id="shelfModal" class="modal">
+    <button class="modal__close" id="closeModal" aria-label="Close shelf">×</button>
+    <div id="modalContent"></div>
+  </dialog>
+
+  <script>
+const shelves = [
+  {
+    "id": "preaching-notes",
+    "title": "Preaching Notes",
+    "tag": "Teaching",
+    "description": "Sermon notes, discussion guides and teaching resources for Fusion sessions.",
+    "image": "https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1200&q=80",
+    "keywords": [
+      "preaching",
+      "sermon",
+      "notes",
+      "teaching",
+      "discussion",
+      "bible",
+      "message"
+    ],
+    "resources": [
+      {
+        "name": "Friday Message Notes",
+        "type": "Preaching Notes",
+        "note": "Upload weekly preaching notes or discussion prompts here.",
+        "link": "#"
+      },
+      {
+        "name": "Small Group Discussion Guide",
+        "type": "Guide",
+        "note": "Questions for crews or leaders after the message.",
+        "link": "#"
+      },
+      {
+        "name": "Speaker Preparation Template",
+        "type": "Template",
+        "note": "Simple outline for preparing a Fusion teaching session.",
+        "link": "#"
+      }
+    ]
+  },
+  {
+    "id": "band-setlists",
+    "title": "Band Setlists",
+    "tag": "Worship",
+    "description": "Weekly setlists, lyrics, arrangements and worship preparation resources.",
+    "image": "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1200&q=80",
+    "keywords": [
+      "band",
+      "setlist",
+      "lyrics",
+      "worship",
+      "music",
+      "practice",
+      "16:00"
+    ],
+    "resources": [
+      {
+        "name": "This Week\u2019s Setlist",
+        "type": "Setlist",
+        "note": "Add songs, keys, order and notes for Friday.",
+        "link": "#"
+      },
+      {
+        "name": "Band Roster",
+        "type": "Roster",
+        "note": "Who is playing, singing or supporting worship this week.",
+        "link": "#"
+      },
+      {
+        "name": "Practice Notes",
+        "type": "Instructions",
+        "note": "Notes for 16:00 Friday practice preparation.",
+        "link": "#"
+      }
+    ]
+  },
+  {
+    "id": "production-media",
+    "title": "Production Media",
+    "tag": "Technical",
+    "description": "Slides, visuals, videos and technical resources for Friday night production.",
+    "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+    "keywords": [
+      "production",
+      "media",
+      "slides",
+      "visuals",
+      "projection",
+      "camera",
+      "sound",
+      "audio"
+    ],
+    "resources": [
+      {
+        "name": "Friday Slides",
+        "type": "Media Content",
+        "note": "Projection slides, announcements and visual content.",
+        "link": "#"
+      },
+      {
+        "name": "Production Run Sheet",
+        "type": "Instructions",
+        "note": "Order of service and technical cues.",
+        "link": "#"
+      },
+      {
+        "name": "Media Content from Social Team",
+        "type": "Media Content",
+        "note": "Videos or visuals sent by the Social Media Team.",
+        "link": "#"
+      }
+    ]
+  },
+  {
+    "id": "social-media-content",
+    "title": "Social Media Content",
+    "tag": "Comms",
+    "description": "Post ideas, graphics, announcements and media content for online communication.",
+    "image": "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1200&q=80",
+    "keywords": [
+      "social",
+      "media",
+      "posts",
+      "instagram",
+      "announcements",
+      "graphics",
+      "content"
+    ],
+    "resources": [
+      {
+        "name": "Weekly Post Plan",
+        "type": "Template",
+        "note": "Plan announcements, volunteer requests and reminders.",
+        "link": "#"
+      },
+      {
+        "name": "Design Assets",
+        "type": "Media Content",
+        "note": "Graphics, logos, image folders and brand assets.",
+        "link": "#"
+      },
+      {
+        "name": "Content Sent to Production",
+        "type": "Media Content",
+        "note": "Track what needs to be played during service.",
+        "link": "#"
+      }
+    ]
+  },
+  {
+    "id": "forms-registration",
+    "title": "Forms & Registration",
+    "tag": "Admin",
+    "description": "Registration forms, attendance tools and sign-up resources for smooth coordination.",
+    "image": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+    "keywords": [
+      "forms",
+      "registration",
+      "attendance",
+      "sign up",
+      "welcoming",
+      "admin",
+      "register"
+    ],
+    "resources": [
+      {
+        "name": "Friday Registration Form",
+        "type": "Form",
+        "note": "Keep this updated and ready to print each week.",
+        "link": "#"
+      },
+      {
+        "name": "Attendance Sheet",
+        "type": "Form",
+        "note": "Track who attended Fusion on Friday.",
+        "link": "#"
+      },
+      {
+        "name": "Welcoming Volunteer Roster",
+        "type": "Roster",
+        "note": "Who is helping with registration and welcoming.",
+        "link": "#"
+      }
+    ]
+  },
+  {
+    "id": "tuckshop-finance",
+    "title": "Tuckshop & Finance",
+    "tag": "Operations",
+    "description": "Stock sheets, finance slips, cash-up records and tuckshop coordination resources.",
+    "image": "https://images.unsplash.com/photo-1556741533-6e6a62bd8b49?auto=format&fit=crop&w=1200&q=80",
+    "keywords": [
+      "tuckshop",
+      "finance",
+      "cash",
+      "cash-up",
+      "slips",
+      "stock",
+      "money",
+      "shopping"
+    ],
+    "resources": [
+      {
+        "name": "Tuckshop Stock Sheet",
+        "type": "Stock",
+        "note": "Check what is available and what needs to be bought.",
+        "link": "#"
+      },
+      {
+        "name": "Cash-up Record",
+        "type": "Finance / Slips",
+        "note": "Record money-in at the end of Friday night.",
+        "link": "#"
+      },
+      {
+        "name": "Finance Slips Tracker",
+        "type": "Finance / Slips",
+        "note": "Track slips that need to be returned to finance.",
+        "link": "#"
+      }
+    ]
+  },
+  {
+    "id": "templates-instructions",
+    "title": "Templates & Instructions",
+    "tag": "Guides",
+    "description": "Checklists, role guides, captain templates and simple operating instructions.",
+    "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1200&q=80",
+    "keywords": [
+      "templates",
+      "instructions",
+      "checklist",
+      "captain",
+      "guide",
+      "roles",
+      "process"
+    ],
+    "resources": [
+      {
+        "name": "Captain Weekly Checklist",
+        "type": "Checklist",
+        "note": "What each captain should confirm before Friday.",
+        "link": "#"
+      },
+      {
+        "name": "Role Guide Template",
+        "type": "Template",
+        "note": "Simple guide for explaining team responsibilities.",
+        "link": "#"
+      },
+      {
+        "name": "Friday Follow-up Template",
+        "type": "Template",
+        "note": "Capture wins, issues, shortages and follow-ups after Friday.",
+        "link": "#"
+      }
+    ]
+  }
+];
+
+const shelfGrid = document.getElementById("shelfGrid");
+const searchInput = document.getElementById("shelfSearch");
+const emptyState = document.getElementById("emptyState");
+const modal = document.getElementById("shelfModal");
+const modalContent = document.getElementById("modalContent");
+const closeModal = document.getElementById("closeModal");
+const resourceCount = document.getElementById("resourceCount");
+
+resourceCount.textContent = shelves.reduce((sum, shelf) => sum + shelf.resources.length, 0);
+
+function renderShelves(items) {
+  shelfGrid.innerHTML = "";
+
+  items.forEach((shelf) => {
+    const article = document.createElement("article");
+    article.className = "shelf-card";
+    article.innerHTML = `
+      <div class="shelf-card__image" style="background-image:url('${shelf.image}')"></div>
+      <div class="shelf-card__content">
+        <span class="shelf-card__tag">${shelf.tag}</span>
+        <h3>${shelf.title}</h3>
+        <p>${shelf.description}</p>
+        <div class="card-actions">
+          <button class="open-btn" data-shelf="${shelf.id}">Open Shelf</button>
+          <a class="link-btn" href="#" aria-label="Placeholder link for ${shelf.title}">Add Link</a>
+        </div>
+      </div>
+    `;
+    shelfGrid.appendChild(article);
+  });
+
+  emptyState.hidden = items.length !== 0;
+}
+
+function filterShelves(term) {
+  const query = term.toLowerCase().trim();
+
+  if (!query) {
+    renderShelves(shelves);
+    return;
+  }
+
+  const filtered = shelves.filter((shelf) => {
+    const haystack = [
+      shelf.title,
+      shelf.tag,
+      shelf.description,
+      ...shelf.keywords,
+      ...shelf.resources.flatMap((resource) => [resource.name, resource.type, resource.note])
+    ].join(" ").toLowerCase();
+
+    return haystack.includes(query);
+  });
+
+  renderShelves(filtered);
+}
+
+function openShelf(id) {
+  const shelf = shelves.find((item) => item.id === id);
+  if (!shelf) return;
+
+  modalContent.innerHTML = `
+    <div class="modal-hero" style="background-image:url('${shelf.image}')">
+      <p class="eyebrow">${shelf.tag}</p>
+      <h2>${shelf.title}</h2>
+    </div>
+    <div class="modal-body">
+      <p>${shelf.description}</p>
+      <div class="resource-list">
+        ${shelf.resources.map(resource => `
+          <div class="resource-item">
+            <strong>${resource.name}</strong>
+            <span>${resource.type} · ${resource.note}</span>
+            <a href="${resource.link}">Replace with real link →</a>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+
+  modal.showModal();
+}
+
+shelfGrid.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-shelf]");
+  if (button) openShelf(button.dataset.shelf);
+});
+
+searchInput.addEventListener("input", (event) => filterShelves(event.target.value));
+
+closeModal.addEventListener("click", () => modal.close());
+
+modal.addEventListener("click", (event) => {
+  const rect = modal.getBoundingClientRect();
+  const clickedOutside =
+    event.clientX < rect.left ||
+    event.clientX > rect.right ||
+    event.clientY < rect.top ||
+    event.clientY > rect.bottom;
+
+  if (clickedOutside) modal.close();
+});
+
+renderShelves(shelves);
+  </script>
+</body>
+</html>
